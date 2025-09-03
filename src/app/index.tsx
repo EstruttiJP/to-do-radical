@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   FlatList,
+  ScrollView,
   StyleSheet,
   TextInput,
   View
@@ -47,9 +48,15 @@ export default function Index() {
       id={item.id}
       text={item.text}
       completed={item.completed}
-      onToggle={toggleTask}  // Passa a função de toggle como prop
+      onToggle={toggleTask} 
+      deleteTask={deleteTask} // Passa a função de toggle como prop
     />
   );
+
+  const deleteTask = (id: string) => {
+    const novaLista = tasks.filter(task => task.id !== id)
+    setTasks(novaLista);
+  }
 
   return (
     <View style={styles.container}>
@@ -71,7 +78,7 @@ export default function Index() {
         </View>
       </View>
 
-      <View style={styles.listContainer}>
+      <ScrollView style={styles.listContainer}>
         {tasks.length > 0 ? (
           <FlatList
             data={tasks}                   // Fonte de dados
@@ -85,7 +92,7 @@ export default function Index() {
             <Title text="Nenhuma tarefa ainda..." />
           </View>
         )}
-      </View>
+      </ScrollView>
     </View>
   );
 }

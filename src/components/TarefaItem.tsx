@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Checkbox from './Checkbox';
 import Label from './Label';
 
@@ -7,13 +7,18 @@ interface TarefaItemProps {
   text: string;
   completed: boolean;
   onToggle: (id: string) => void;
+  deleteTask: (id: string) => void;
 }
 
-export default function TarefaItem({ id, text, completed, onToggle }: TarefaItemProps) {
+export default function TarefaItem({ id, text, completed, onToggle, deleteTask }: TarefaItemProps) {
   return (
     <View style={styles.container}>
       <Checkbox checked={completed} onPress={() => onToggle(id)} />
       <Label text={text} completed={completed} />
+      <TouchableOpacity
+        onPress={() => deleteTask(id)}>
+        <Text>X</Text>
+      </TouchableOpacity>
     </View>
   );
 }
